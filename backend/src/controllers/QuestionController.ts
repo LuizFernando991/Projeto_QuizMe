@@ -1,7 +1,5 @@
 import { Request, Response } from 'express'
 import axios from 'axios'
-import getUserByToken from '../helpers/getUserByToken'
-import getToken from '../helpers/get-token'
 
 interface Question {
     question : string;
