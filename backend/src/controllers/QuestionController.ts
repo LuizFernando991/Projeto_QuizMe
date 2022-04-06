@@ -21,12 +21,12 @@ export default class QuestionController{
             const allAnswers : Array<string> = NewQuestion.incorrect_answers
             const correctAnswer : string = NewQuestion.correct_answer
             allAnswers.push(correctAnswer)
-            const data : Question = {
+            const questionData : Question = {
                 question,
                 allAnswers,
                 correctAnswer,
             }
-            return res.status(200).json({ data : data})
+            return res.status(200).json({ data : questionData})
         }else{
             return res.status(503).json({ message : 'question not found'})
         }
