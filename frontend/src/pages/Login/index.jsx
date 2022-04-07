@@ -1,16 +1,38 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import { UserContext } from '../../context/UserContext'
 import { Link } from 'react-router-dom'
 import { Input } from '../../components/Input'
 import { SubmitButton } from '../../components/SubmitButton'
+import notify from '../../helpers/notify'
+import api from '../../helpers/api'
 import * as Styled from './styles'
+
 
 
 export function Login(){
 
     const [ user, setUser ] = useState({})
+    const { authenticated, setAuthenticated } = useContext(UserContext)
    
-    async function handleOnSubmit(e){
+    function handleOnSubmit(e){
         e.preventDefault()
+        api.post('/user/login', user)
+            .then((data)=>{
+                localStorage.setItem('token', JSON.stringify(data.data.token))
+                setAuthenticated(true)
+                console.log(authenticated)
+            })
+            .catch((err)=>{
+                let msg
+                if(err.response.data.message === 'password is required' || err.response.data.message === 'wrong password'){
+                    msg = 'Senha incorreta'
+                }else if(err.response.data.message === 'email is required' || err.response.data.message === 'user not found'){
+                    msg = 'Email não encontrado'
+                }else{
+                    msg = 'Algo deu errado, tente novamente'
+                }
+                notify(msg)
+            })
     }
 
     function handleOnChange(e){

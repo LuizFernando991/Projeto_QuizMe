@@ -58,11 +58,11 @@ export default class UserController {
     public static async loginUser(req : Request, res : Response) : Promise<Response>{
         
         const { email, password } = req.body
-        if(!password){
-            return res.status(422).json({message : 'password is required'})
-        }
         if(!email){
             return res.status(422).json({message : 'email is required'}) 
+        }
+        if(!password){
+            return res.status(422).json({message : 'password is required'})
         }
         // check if user exists
         const user = await User.findOne({ email : email })
