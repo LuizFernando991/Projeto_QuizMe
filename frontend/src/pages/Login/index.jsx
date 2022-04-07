@@ -3,6 +3,7 @@ import { UserContext } from '../../context/UserContext'
 import { Link } from 'react-router-dom'
 import { Input } from '../../components/Input'
 import { SubmitButton } from '../../components/SubmitButton'
+import { Logo } from '../../components/Logo'
 import notify from '../../helpers/notify'
 import api from '../../helpers/api'
 import * as Styled from './styles'
@@ -41,8 +42,8 @@ export function Login(){
 
     return(
         <Styled.LoginContainer>
-            <h1>QuizMe</h1>
-            <h4>Entre com sua conta</h4>
+            <Logo/>
+            <h4>Entre com a sua conta</h4>
             <form onSubmit={handleOnSubmit}>
                 <Input type='email' placeholder='Email' name='email' onChange={handleOnChange}/>
                 <Input type='password'  placeholder='Senha' name='password' onChange={handleOnChange}/>

@@ -17,18 +17,13 @@ export const LoginContainer = styled.div`
     box-shadow: 0 3px 5px 1px rgba(0,0,0,0.1);
 
     h1{
-        margin-top: 20px;
-        text-align: center;
-        font-family: 'Beau Rivage';
-        font-size: 3.2em;
-        color: #38a7ff;
-        
+        margin-top: 20px;  
     }
     h4{
         text-align: center;
         margin-top: 6px;
-        font-family: 'Beau Rivage';
-        font-size: 1.3em;
+        font-family: 'Beau Rivage', cursive;
+        font-size: 1em;
         color: #288FE0;
     }
 
