@@ -1,11 +1,9 @@
 import styled from 'styled-components'
 
-
-
-export const LoginContainer = styled.div` 
+export const RegisterContainer = styled.div` 
 
     width: 400px;
-    height: 400px;
+    height: 600px;
     background-color: #fff;
     position: absolute;
     top: 0;
@@ -17,20 +15,19 @@ export const LoginContainer = styled.div`
     box-shadow: 0 3px 5px 1px rgba(0,0,0,0.1);
 
     h1{
-        margin-top: 20px;  
+        margin-top: 20px;
     }
-    
-    h4{
+
+    h2{
         text-align: center;
-        margin-top: 10px;
+        margin-top: 60px;
         font-family: 'Beau Rivage', cursive;
-        font-size: 1em;
+        font-size: 1.2em;
         color: #288FE0;
     }
 
     form{
-        margin: 0 auto;
-        height: 200px;
+        margin: 20px auto;
         width: 80%;
         display: flex;
         justify-content: center;
@@ -50,10 +47,9 @@ export const LoginContainer = styled.div`
         color: #38a7ff;
         font-weight: bold;
     }
-
+    
     a{
         text-decoration: none;
-        color: #288FE0;
     }
 
 `
@@ -62,6 +58,6 @@ export const LogoContainer = styled.div`
 
     width: 100%;
     border-bottom: 1px solid #38a7ff;
-    padding-bottom: 15px;
+    padding-bottom: 20px;
 
 `

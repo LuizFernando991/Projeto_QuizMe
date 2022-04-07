@@ -20,6 +20,9 @@ export default class UserController {
         if(!password){
             return res.status(422).json({ message : 'password is required'})
         }
+        if(!confirmPassword){
+            return res.status(422).json({ message : 'confirmPassword is required'})
+        }
         if(password !== confirmPassword){
             return res.status(422).json({ message : 'password must match with confirmPassword'})
         }

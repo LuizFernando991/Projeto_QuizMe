@@ -21,7 +21,6 @@ export function Login(){
             .then((data)=>{
                 localStorage.setItem('token', JSON.stringify(data.data.token))
                 setAuthenticated(true)
-                console.log(authenticated)
             })
             .catch((err)=>{
                 let msg
@@ -42,14 +41,16 @@ export function Login(){
 
     return(
         <Styled.LoginContainer>
-            <Logo/>
+            <Styled.LogoContainer>
+                <Logo/>
+            </Styled.LogoContainer>
             <h4>Entre com a sua conta</h4>
             <form onSubmit={handleOnSubmit}>
                 <Input type='email' placeholder='Email' name='email' onChange={handleOnChange}/>
                 <Input type='password'  placeholder='Senha' name='password' onChange={handleOnChange}/>
                 <SubmitButton text='Enviar' onClick={handleOnSubmit}/>
             </form>
-            <p>Não possui uma conta? <Link to=''><span>Registrar</span></Link></p>
+            <p>Não possui uma conta? <Link to='/register'><span>Registrar</span></Link></p>
         </Styled.LoginContainer>
     )
 }   
