@@ -49,7 +49,7 @@ export function Login(){
                 <Input type='password'  placeholder='Senha' name='password' onChange={handleOnChange}/>
                 <SubmitButton text='Enviar' onClick={handleOnSubmit}/>
             </form>
-            <p>Não possui uma conta? <Link to=''>Registrar</Link></p>
+            <p>Não possui uma conta? <Link to=''><span>Registrar</span></Link></p>
         </Styled.LoginContainer>
     )
 }   

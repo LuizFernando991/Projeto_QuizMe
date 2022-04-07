@@ -40,6 +40,14 @@ export const LoginContainer = styled.div`
     p{
         width: 80%;
         margin: 0 auto;
+        font-family: 'Beau Rivage', cursive;
+        font-size: 0.8em;
+        color: #288FE0;
+    }
+    
+    span{
+        color: #38a7ff;
+        font-weight: bold;
     }
 
     a{

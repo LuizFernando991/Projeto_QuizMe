@@ -14,6 +14,8 @@ export const Input = styled.div`
     }
     input::placeholder{
         color: #38a7ff;
+        font-weight: bold;
+        opacity: 0.6;
     }
     input:focus{
         outline: none;
