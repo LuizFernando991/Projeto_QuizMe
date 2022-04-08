@@ -1,6 +1,7 @@
 import { useState, useContext } from 'react'
 import { UserContext } from '../../context/UserContext'
 import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
 import { Input } from '../../components/Input'
 import { SubmitButton } from '../../components/SubmitButton'
 import { Logo } from '../../components/Logo'
@@ -24,12 +25,16 @@ export function Login(){
             })
             .catch((err)=>{
                 let msg
-                if(err.response.data.message === 'password is required' || err.response.data.message === 'wrong password'){
-                    msg = 'Senha incorreta'
-                }else if(err.response.data.message === 'email is required' || err.response.data.message === 'user not found'){
-                    msg = 'Email não encontrado'
+                if(err.response){
+                    if(err.response.data.message === 'password is required' || err.response.data.message === 'wrong password'){
+                        msg = 'Senha incorreta'
+                    }else if(err.response.data.message === 'email is required' || err.response.data.message === 'user not found'){
+                        msg = 'Email não encontrado'
+                    }else{
+                        msg = 'Algo deu errado, tente novamente.'
+                    }
                 }else{
-                    msg = 'Algo deu errado, tente novamente'
+                    msg = 'Algo deu errado, tente novamente.'
                 }
                 notify(msg)
             })
@@ -40,6 +45,12 @@ export function Login(){
     }
 
     return(
+        <motion.div
+            initial={{opacity: 0, translateY: '0vh'}}
+            animate={{opacity: 1, translateY: '50vh'}}
+            exit={{opacity: 0, translateY: '-60vh'}}
+            transition={{duration: 0.8, delay: 0.2}} 
+        >
         <Styled.LoginContainer>
             <Styled.LogoContainer>
                 <Logo/>
@@ -52,5 +63,6 @@ export function Login(){
             </form>
             <p>Não possui uma conta? <Link to='/register'><span>Registrar</span></Link></p>
         </Styled.LoginContainer>
+        </motion.div>
     )
 }   

@@ -15,6 +15,7 @@ export const LoginContainer = styled.div`
     margin: auto;
     border-radius: 20px;
     box-shadow: 0 3px 5px 1px rgba(0,0,0,0.1);
+    
 
     h1{
         margin-top: 20px;  

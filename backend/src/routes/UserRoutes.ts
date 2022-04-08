@@ -6,8 +6,9 @@ const router = express.Router()
 
 router.get('/', verifyToken, UserController.getUser)
 router.post('/login', UserController.loginUser)
-router.post('/register', imageUpload.single('image'), UserController.registerUser)
+router.post('/register', UserController.registerUser)
 router.post('/userAnwser', verifyToken, UserController.newUserAnwser)
 
+//imageUpload.single('image')
 
 export default router

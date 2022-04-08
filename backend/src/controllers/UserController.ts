@@ -35,19 +35,12 @@ export default class UserController {
         // Encrypting password before save in db    
         const salt = await bcrypt.genSalt(12)
         const passwordHash = await bcrypt.hash(password, salt)
-        // Image Upload
-        let image
-        if(req.file){
-            image = req.file.filename
-        }else{
-            image = ''
-        }
         // Create new User
         const user = new User({
             name : name,
             email : email,
             password : passwordHash,
-            image : image
+            image : ''
         })
         try{
             await user.save()

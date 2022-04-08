@@ -1,6 +1,7 @@
 import { useState, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import api from '../../helpers/api'
+import { motion } from 'framer-motion'
 import notify from '../../helpers/notify'
 import { UserContext } from '../../context/UserContext'
 import { Logo } from '../../components/Logo'
@@ -28,31 +29,41 @@ export function Register(){
             })
             .catch((err)=>{
                 let msg
-                switch (err.response.data.message) {
-                    case 'name is required':
-                        msg = 'O nome é obrigatório'
-                        break;
-                    case 'email is required':
-                        msg = 'O email é obrigatório'
-                        break;
-                    case 'password is required':
-                        msg = 'A senha é obrigatório'
-                        break;
-                    case 'confirmPassword is required':
-                        msg = 'A confirmação de senha é obrigatória'
-                        break;
-                    case 'password must match with confirmPassword':
-                        msg = 'As senhas devem ser iguais'
-                        break;
-                    default:
-                        msg = 'Algo deu errado, tente novamente'
-                        break;
+                if(err.response){
+                    switch (err.response.data.message) {
+                        case 'name is required':
+                            msg = 'O nome é obrigatório'
+                            break;
+                        case 'email is required':
+                            msg = 'O email é obrigatório'
+                            break;
+                        case 'password is required':
+                            msg = 'A senha é obrigatório'
+                            break;
+                        case 'confirmPassword is required':
+                            msg = 'A confirmação de senha é obrigatória'
+                            break;
+                        case 'password must match with confirmPassword':
+                            msg = 'As senhas devem ser iguais'
+                            break;
+                        default:
+                            msg = 'Algo deu errado, tente novamente.'
+                            break;
+                    }
+                }else{
+                    msg = 'Algo deu errado, tente novamente.'
                 }
                 notify(msg)
             })
     }
 
     return(
+        <motion.div
+            initial={{opacity: 0, translateY: '0vh'}}
+            animate={{opacity: 1, translateY: '50vh'}}
+            exit={{opacity: 0, translateY: '0vh'}}
+            transition={{duration: 0.8, delay: 0.2}}
+        >
         <Styled.RegisterContainer>
             <Styled.LogoContainer>
                 <Logo />
@@ -67,5 +78,6 @@ export function Register(){
             </form>
             <p>Já possui uma conta? <Link to='/login'><span>Entrar</span></Link></p>
         </Styled.RegisterContainer>
+        </motion.div>
     )
 }
