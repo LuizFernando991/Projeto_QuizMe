@@ -1,5 +1,5 @@
-import { useState, useContext } from 'react'
-import { Link } from 'react-router-dom'
+import { useState, useContext, useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import api from '../../helpers/api'
 import { motion } from 'framer-motion'
 import notify from '../../helpers/notify'
@@ -15,6 +15,13 @@ export function Register(){
 
     const [ user, setUser ] = useState({}) 
     const { authenticated, setAuthenticated } = useContext(UserContext)
+    const navigate = useNavigate()
+
+    useEffect(()=>{
+        if(authenticated){
+            navigate('/')
+        }
+    }, [authenticated, navigate])
 
     function handleOnChange(e){
         setUser({...user, [e.target.name] : e.target.value})
@@ -59,10 +66,9 @@ export function Register(){
 
     return(
         <motion.div
-            initial={{opacity: 0, translateY: '0vh'}}
-            animate={{opacity: 1, translateY: '50vh'}}
-            exit={{opacity: 0, translateY: '0vh'}}
-            transition={{duration: 0.8, delay: 0.2}}
+            initial={{opacity: 0}}
+            animate={{opacity: 1}}
+            transition={{duration: 0.8}}
         >
         <Styled.RegisterContainer>
             <Styled.LogoContainer>
@@ -76,7 +82,7 @@ export function Register(){
                 <Input type='password' name='confirmPassword' placeholder='Confirme a senha' onChange={handleOnChange}/>
                 <SubmitButton text='Cadastrar' />
             </form>
-            <p>Já possui uma conta? <Link to='/login'><span>Entrar</span></Link></p>
+            <p>Já possui uma conta? <Link to='/auth/login'><span>Entrar</span></Link></p>
         </Styled.RegisterContainer>
         </motion.div>
     )

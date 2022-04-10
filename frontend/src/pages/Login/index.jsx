@@ -1,6 +1,6 @@
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import { UserContext } from '../../context/UserContext'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Input } from '../../components/Input'
 import { SubmitButton } from '../../components/SubmitButton'
@@ -15,6 +15,13 @@ export function Login(){
 
     const [ user, setUser ] = useState({})
     const { authenticated, setAuthenticated } = useContext(UserContext)
+    const navigate = useNavigate()
+
+    useEffect(()=>{
+        if(authenticated){
+            navigate('/')
+        }
+    }, [authenticated, navigate])
    
     function handleOnSubmit(e){
         e.preventDefault()
@@ -46,10 +53,9 @@ export function Login(){
 
     return(
         <motion.div
-            initial={{opacity: 0, translateY: '0vh'}}
-            animate={{opacity: 1, translateY: '50vh'}}
-            exit={{opacity: 0, translateY: '-60vh'}}
-            transition={{duration: 0.8, delay: 0.2}} 
+            initial={{opacity: 0}}
+            animate={{opacity: 1}}
+            transition={{duration: 0.8}}
         >
         <Styled.LoginContainer>
             <Styled.LogoContainer>
@@ -61,7 +67,7 @@ export function Login(){
                 <Input type='password'  placeholder='Senha' name='password' onChange={handleOnChange}/>
                 <SubmitButton text='Enviar' onClick={handleOnSubmit}/>
             </form>
-            <p>Não possui uma conta? <Link to='/register'><span>Registrar</span></Link></p>
+            <p>Não possui uma conta? <Link to='/auth/register'><span>Registrar</span></Link></p>
         </Styled.LoginContainer>
         </motion.div>
     )

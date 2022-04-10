@@ -1,7 +1,6 @@
 import { UserContextProvider } from './context/UserContext'
 import { BrowserRouter } from 'react-router-dom' 
-import { Container } from './components/Container'
-import { AnimatedAuthRoutes } from './components/AnimatedAuthRoutes'
+import { AllRoutes } from './components/AllRoutes'
 import { ToastContainer } from 'react-toastify'
 import { GlobalStyle } from './global-styles'
 
@@ -10,11 +9,9 @@ function App() {
     <>
     <UserContextProvider>
       <GlobalStyle/>
-      <Container>
         <BrowserRouter>
-          <AnimatedAuthRoutes />
+            <AllRoutes />
         </BrowserRouter>
-      </Container>
       </UserContextProvider>
       <ToastContainer 
         position="top-center"
