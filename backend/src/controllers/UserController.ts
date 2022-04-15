@@ -85,7 +85,6 @@ export default class UserController {
 
         const user = await getUserByToken(userToken, res)
 
-        console.log(user)
         
         if(!user){
             return res.status(422).json({ messagem : 'User not found'})
