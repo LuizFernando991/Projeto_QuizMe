@@ -5,6 +5,7 @@ import { Register } from '../../pages/Register'
 import { AuthContainer } from "../AuthContainer"
 import { AppContainer } from "../AppContainer"
 import { Home } from "../../pages/Home"
+import { Profile } from "../../pages/Profile"
 
 
 export function AllRoutes(){
@@ -17,6 +18,7 @@ export function AllRoutes(){
                 <Routes location={location} key={location.pathname}>
                     <Route path='/' element={<AppContainer/>}>
                         <Route path='/' element={<Home/>}/>
+                        <Route path='/profile' element={<Profile/>}/>
                     </Route> 
                     <Route path='/auth' element={<AuthContainer/>}>
                         <Route path='login' element={<Login/>}/>

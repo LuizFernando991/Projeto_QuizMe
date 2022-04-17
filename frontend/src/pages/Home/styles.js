@@ -39,35 +39,36 @@ export const ContainerStartButton = styled.div`
     flex-direction: column;
     justify-content: center;
 
-    button{
-        width: 200px;
-        height: 60px;
-        margin-top: 60px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        font-family: 'Roboto', sans-serif;
-        font-size: 11px;
-        text-transform: uppercase;
-        letter-spacing: 2.5px;
-        font-weight: 600;
-        color: #fff;
-        background: linear-gradient(158deg, rgba(96,102,208,0.8) 0%, rgba(56,167,255,0.9) 100%);
-        border: none;
-        border-radius: 45px;
-        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-        transition: all 0.3s ease 0s;
-        cursor: pointer;
-        outline: none;
-    }
-    button:hover {
+`
+
+export const QuestionsButton = styled.button`
+
+    width: 200px;
+    height: 60px;
+    margin-top: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-family: 'Roboto', sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    font-weight: 600;
+    color: #fff;
+    background: linear-gradient(158deg, rgba(96,102,208,0.8) 0%, rgba(56,167,255,0.9) 100%);
+    border: none;
+    border-radius: 45px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+    &:hover{
         background-color: #2EE59D;
         box-shadow: 0px 15px 20px rgba(56,167,255,0.3);
         color: #fff;
         transform: translateY(-7px);
     }
-
 `
 
 export const TextContainer = styled.div`
@@ -85,10 +86,35 @@ export const TextContainer = styled.div`
 export const AnswerContainer = styled.div`
     
     width: 100%;
-    margin-top: 20px;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    margin-top: 30px;
+    margin: 30px 0px 35px 0px;
+
 
 `
+
+export const RevealContainer = styled.div`
+
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    position: absolute;
+    z-index: 2;
+
+    button{
+        margin-bottom: 15px;
+        border: 1px solid yellowgreen;
+    }
+
+    button:hover{
+        color: yellow;
+    }
+
+
+
+`
+

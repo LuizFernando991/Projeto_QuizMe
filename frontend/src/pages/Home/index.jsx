@@ -11,10 +11,13 @@ export function Home(){
     const [ start, setStart ] = useState(false)
     const [ loading, setLoading ] = useState(false)
     const [ question, setQuestion ] = useState('')
-
+    const [ currentAnswer, setCurrentAnswer ] = useState('')
+    const [ revealCorrectAnswer, setRevealCorrectAnswer] = useState(false)
+    
+    
     async function handleOnStartButtonClick(){
         await RequestNewQuestion()
-        setStart(true)      
+        setStart(true)       
     }
 
     async function RequestNewQuestion(){
@@ -25,13 +28,32 @@ export function Home(){
             }
         })
             .then((res)=>{
-                setQuestion(res.data.data)
+                setRevealCorrectAnswer(false)
                 setLoading(false)
+                setQuestion(res.data.data)
             })
             .catch((err)=>{
-                notify('Algo deu errado')
                 setLoading(false)
+                notify('Algo deu errado')
             })
+    }
+
+    async function handleOnAnswerClick(answer){
+        setCurrentAnswer(answer)
+        let isCorrect = answer === question.correctAnswer
+        await api.post('/user/userAnswer', { isCorrect },{
+            headers: {
+                Authorization : `Bearer ${JSON.parse(localStorage.getItem('token'))}`
+        }
+    })
+        .then((res)=>{
+            setRevealCorrectAnswer(true)
+        })
+        .catch((err)=>{
+            notify('Algo deu errado')
+        })
+
+        
     }
 
     return(
@@ -45,16 +67,30 @@ export function Home(){
                 <Styled.AnswerContainer>
                 {
                     question ?  
-                        question.allAnswers.map((answer, index)=> <Answer key={index} index={index} answer={answer}/>) :
+                        question.allAnswers.map((answer, index)=> <Answer 
+                            key={index} index={index} answer={answer} currentAnswer={currentAnswer} 
+                            onClick={handleOnAnswerClick} correctAnswer={question.correctAnswer}
+                            revealCorrectAnswer={revealCorrectAnswer}
+                            />) 
+                        :
                         <div></div> 
                 }
                 </Styled.AnswerContainer>
+
+                {
+                    revealCorrectAnswer ? 
+                    <Styled.RevealContainer>
+                        <Styled.QuestionsButton onClick={RequestNewQuestion}>{loading ? <AnimatedLoading/> : "Próxima Questão"}</Styled.QuestionsButton>
+                    </Styled.RevealContainer>
+                    :
+                    ''
+                }
                 
             </Styled.QuestionContainer> 
             :
             <Styled.ContainerStartButton>
                 <Styled.TextContainer><h2>Você consegue responder à essas perguntas?</h2></Styled.TextContainer>
-                <button onClick={handleOnStartButtonClick}>{loading ? <AnimatedLoading/> : "Iniciar"}</button>
+                <Styled.QuestionsButton onClick={handleOnStartButtonClick}>{loading ? <AnimatedLoading/> : "Iniciar"}</Styled.QuestionsButton>
             </Styled.ContainerStartButton>
         }
         </>

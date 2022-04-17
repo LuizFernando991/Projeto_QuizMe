@@ -92,7 +92,7 @@ export default class UserController {
         return res.status(200).json(user)
     }
 
-    public static async newUserAnwser (req : Request, res : Response) : Promise<Response>{
+    public static async newUserAnswer (req : Request, res : Response) : Promise<Response>{
 
         const userToken = getToken(req)
         if(!userToken){
@@ -106,16 +106,15 @@ export default class UserController {
             const { isCorrect } = req.body
             if(isCorrect){
                 let new_qtd_correct_answers = user.qtd_correct_answers + 1
-                newUser = { ...user, qtd_correct_answers : new_qtd_correct_answers}
+                newUser = { qtd_correct_answers : new_qtd_correct_answers}
             }else{
                 let new_qtd_wrong_answers = user.qtd_wrong_answers + 1
-                newUser = { ...user, qtd_wrong_answers : new_qtd_wrong_answers}
+                newUser = { qtd_wrong_answers : new_qtd_wrong_answers}
             }
         }
-        
         try{
-            await User.updateOne({ _id : user._id}, newUser)
-            return res.status(200).json({ data : newUser})
+            const updatedUser = await User.findOneAndUpdate({ _id : user._id}, newUser)
+            return res.status(200).json({user : updatedUser})
         }catch(err){
             return res.status(500).json({ message : 'internal error'})
         }  

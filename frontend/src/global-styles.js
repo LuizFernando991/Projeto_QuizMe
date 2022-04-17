@@ -9,7 +9,6 @@ export const GlobalStyle = createGlobalStyle`
     *{
         padding: 0;
         margin: 0;
-        font-family: Helvetica ;
         box-sizing: border-box;
         overflow: hidden;
         

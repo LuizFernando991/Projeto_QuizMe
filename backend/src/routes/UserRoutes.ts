@@ -7,7 +7,7 @@ const router = express.Router()
 router.get('/', verifyToken, UserController.getUser)
 router.post('/login', UserController.loginUser)
 router.post('/register', UserController.registerUser)
-router.post('/userAnwser', verifyToken, UserController.newUserAnwser)
+router.post('/userAnswer', verifyToken, UserController.newUserAnswer)
 
 //imageUpload.single('image')
 
