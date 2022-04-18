@@ -1,4 +1,6 @@
-import { useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
+import { UserContext } from '../../context/UserContext'
+import { useNavigate } from 'react-router-dom'
 import parse from 'html-react-parser'
 import { AnimatedLoading } from '../../components/AnimatedLoading'
 import { Answer } from '../../components/Answer'
@@ -13,12 +15,15 @@ export function Home(){
     const [ question, setQuestion ] = useState('')
     const [ currentAnswer, setCurrentAnswer ] = useState('')
     const [ revealCorrectAnswer, setRevealCorrectAnswer] = useState(false)
-    
-    
-    async function handleOnStartButtonClick(){
-        await RequestNewQuestion()
-        setStart(true)       
-    }
+    const { authenticated } = useContext(UserContext)
+
+    const navigate = useNavigate()
+
+    useEffect(()=>{
+        if(!authenticated){
+            navigate('/auth/login')
+        }
+    })
 
     async function RequestNewQuestion(){
         setLoading(true)
@@ -30,11 +35,14 @@ export function Home(){
             .then((res)=>{
                 setRevealCorrectAnswer(false)
                 setLoading(false)
-                setQuestion(res.data.data)
+                setQuestion(()=>res.data.data)
+                if(!start){
+                    setStart(true)
+                }
             })
             .catch((err)=>{
-                setLoading(false)
                 notify('Algo deu errado')
+                setLoading(false)
             })
     }
 
@@ -57,7 +65,7 @@ export function Home(){
     }
 
     return(
-        <>
+        <Styled.HomeContainer>
         { start ? 
             <Styled.QuestionContainer>
                 {
@@ -90,9 +98,9 @@ export function Home(){
             :
             <Styled.ContainerStartButton>
                 <Styled.TextContainer><h2>Você consegue responder à essas perguntas?</h2></Styled.TextContainer>
-                <Styled.QuestionsButton onClick={handleOnStartButtonClick}>{loading ? <AnimatedLoading/> : "Iniciar"}</Styled.QuestionsButton>
+                <Styled.QuestionsButton onClick={RequestNewQuestion}>{loading ? <AnimatedLoading/> : "Iniciar"}</Styled.QuestionsButton>
             </Styled.ContainerStartButton>
         }
-        </>
+        </Styled.HomeContainer>
     )
 }

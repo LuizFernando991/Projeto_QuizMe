@@ -1,5 +1,14 @@
 import styled from 'styled-components'
 
+export const HomeContainer = styled.div`
+
+    width: 100%;
+    height: 100vh;
+    background: rgb(142,205,255);
+    background: linear-gradient(167deg, rgba(142,205,255,0) 29%, rgba(56,167,255,0.4069210122699386) 64%, rgba(11,83,156,0.6110819327731092) 100%);
+
+`
+
 export const QuestionContainer = styled.div` 
 
     width: 40%;

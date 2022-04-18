@@ -34,11 +34,11 @@ export default class UserController {
         }
         // Encrypting password before save in db    
         const salt = await bcrypt.genSalt(12)
-        const passwordHash = await bcrypt.hash(password, salt)
+        const passwordHash = await bcrypt.hash(password.trim(), salt)
         // Create new User
         const user = new User({
-            name : name,
-            email : email,
+            name : name.trim(),
+            email : email.trim(),
             password : passwordHash,
             image : ''
         })

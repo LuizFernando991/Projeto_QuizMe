@@ -13,7 +13,7 @@ export function AppContainer(){
     return(
         <>
             <Styled.Nav>
-                <Link to='/'><Logo /></Link>;
+                <Link to='/'><Logo /></Link>
                 <Link to='/profile'>
                     <Styled.ImgContainer>
                         {
