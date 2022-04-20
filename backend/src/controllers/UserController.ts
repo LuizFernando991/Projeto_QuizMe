@@ -120,4 +120,30 @@ export default class UserController {
         }  
     }
 
+    public static async updateUser (req : Request, res : Response ) : Promise<Response>{
+        
+        const userToken = getToken(req)
+        if(!userToken){
+            return res.status(401).json({ message : 'unauthorized'})
+        }
+
+        const user = await getUserByToken(userToken, res)
+        if(!user){
+            return res.status(404).json({ message : 'user not found'})
+        }
+
+        const dataUpdated = req.body
+        if(!dataUpdated){
+            return res.status(422).json({ message : 'data is required'})
+        }
+        
+        try{
+            const updatedUser = await User.findOneAndUpdate({_id : user._id}, dataUpdated).select('-password')
+            return res.status(200).json({user : updatedUser})
+        }catch(err){
+            return res.status(500).json({ message : 'internal error'})
+        }
+
+    }
+
 }  

@@ -55,7 +55,8 @@ export function CircularProgressBar({ correctAnswers, wrongAnswers }){
                         fill: "#38a7ff",
                         transitionDelay: '1s',
                         transition: 'all 1s ease-in',
-                        fontFamily: "'Beau Rivage', cursive"
+                        fontFamily: "'Roboto Mono', monospace",
+                        fontWeight: "bold"
                     }
                 }}
                 strokeWidth={10}

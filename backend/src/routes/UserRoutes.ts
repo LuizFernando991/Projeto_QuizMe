@@ -8,7 +8,7 @@ router.get('/', verifyToken, UserController.getUser)
 router.post('/login', UserController.loginUser)
 router.post('/register', UserController.registerUser)
 router.post('/userAnswer', verifyToken, UserController.newUserAnswer)
+router.patch('/updateUser', verifyToken, imageUpload.single('image'), UserController.updateUser)
 
-//imageUpload.single('image')
 
 export default router

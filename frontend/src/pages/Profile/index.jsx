@@ -1,7 +1,8 @@
 import { useContext, useEffect } from 'react'
 import { UserContext } from '../../context/UserContext'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { CircularProgressBar } from '../../components/CircularProgressbar'
+import { TotalAnswers } from '../../components/TotalAnswers'
 import api from '../../helpers/api'
 import notify from '../../helpers/notify'
 import DefaultUserImage from '../../Images/default-user.jpg'
@@ -9,7 +10,14 @@ import * as Styled from './styles'
 
 export function Profile(){
 
-    const { authenticatedUser, setAuthenticatedUser, authenticated } =  useContext(UserContext)
+    const { authenticatedUser, setAuthenticatedUser, authenticated, setAuthenticated } =  useContext(UserContext)
+    const navigate = useNavigate()
+
+    useEffect(()=>{
+        if(!authenticated){
+            navigate('/auth/login')
+        }
+    }, [authenticated, navigate])
 
     useEffect(()=>{
         api.get('/user', {
@@ -27,6 +35,11 @@ export function Profile(){
         
     }, [setAuthenticatedUser])
     
+    function handleOnLogoutButtonClick(){
+        localStorage.removeItem('token')
+        setAuthenticatedUser('')
+        setAuthenticated(false)
+    }
 
     return(
         <Styled.ProfilePageContainer>
@@ -39,11 +52,22 @@ export function Profile(){
                 <Styled.ProgressBarContainer>
                     <Styled.CircularProgressBarContainer>
                         <CircularProgressBar correctAnswers={authenticatedUser.qtd_correct_answers} wrongAnswers={authenticatedUser.qtd_wrong_answers}/>
-                        <h2>Taxa de acerto</h2>
                     </Styled.CircularProgressBarContainer>
+                    <Styled.TotalAnswersContainer>
+                        <TotalAnswers correctAnswers={authenticatedUser.qtd_correct_answers} wrongAnswers={authenticatedUser.qtd_wrong_answers}/>
+                    </Styled.TotalAnswersContainer>
                 </Styled.ProgressBarContainer>
+                <Styled.TitleProgressBarContainer>
+                    <Styled.H2>Taxa de acerto</Styled.H2>
+                    <Styled.H2>Questões respondidas</Styled.H2>
+                </Styled.TitleProgressBarContainer>
+                <Styled.LinksContainer>
+                    <Link to='/profile/edit'>Editar Perfil</Link>
+                    <button onClick={handleOnLogoutButtonClick}>Sair</button>
+                </Styled.LinksContainer>
             </Styled.ProfileContainer>
         </Styled.ProfilePageContainer>
     )
 
 }
+

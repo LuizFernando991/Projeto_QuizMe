@@ -23,7 +23,7 @@ export function Home(){
         if(!authenticated){
             navigate('/auth/login')
         }
-    })
+    }, [authenticated, navigate])
 
     async function RequestNewQuestion(){
         setLoading(true)

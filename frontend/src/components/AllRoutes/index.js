@@ -6,7 +6,7 @@ import { AuthContainer } from "../AuthContainer"
 import { AppContainer } from "../AppContainer"
 import { Home } from "../../pages/Home"
 import { Profile } from "../../pages/Profile"
-
+import { EditUser } from "../../pages/EditUser"
 
 export function AllRoutes(){
 
@@ -16,14 +16,15 @@ export function AllRoutes(){
         <AnimatePresence>
             
                 <Routes location={location} key={location.pathname}>
-                    <Route path='/' element={<AppContainer/>}>
-                        <Route path='/' element={<Home/>}/>
-                        <Route path='/profile' element={<Profile/>}/>
-                    </Route> 
                     <Route path='/auth' element={<AuthContainer/>}>
                         <Route path='login' element={<Login/>}/>
                         <Route path='register' element={<Register/>}/>  
                     </Route>
+                    <Route path='/' element={<AppContainer/>}>
+                        <Route path='/' element={<Home/>}/>
+                        <Route path='/profile' exact element={<Profile/>}/>
+                        <Route path='/profile/edit' exact element={<EditUser/>}/>
+                    </Route> 
                 </Routes>
             
         </AnimatePresence>
