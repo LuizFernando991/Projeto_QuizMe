@@ -29,6 +29,8 @@ export const ProfileContainer = styled.div`
 export const ImageContainer = styled.img`
     
     width: 120px;
+    height: 120px;
+    border-radius: 99999px;
     margin-top: 20px;
     opacity: 0.8;
     

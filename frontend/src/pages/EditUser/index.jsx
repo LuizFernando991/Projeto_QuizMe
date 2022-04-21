@@ -16,6 +16,7 @@ export function EditUser(){
     const [ imagePreview, setImagePreview ] = useState('')
     const navigate = useNavigate()
 
+
     useEffect(()=>{
         if(!authenticated){
             navigate('/')
@@ -50,7 +51,8 @@ export function EditUser(){
                 'Content-Type' : 'multipart/form-data'
             }
         }).then((res)=>{
-            console.log(res.data.user)
+            setAuthenticatedUser(res.data.user)
+            navigate('/profile')
         }).catch((err)=>{
             notify('Algo deu errado!')
         })
@@ -65,7 +67,13 @@ export function EditUser(){
             <Styled.EditProfileContainer>
                 <Styled.ImageContainer>
                     <div>
-                        <img src={imagePreview ? URL.createObjectURL(imagePreview) : DefaultUserImage} alt="Profile" />
+                        {
+                            imagePreview ?
+                                <img src={URL.createObjectURL(imagePreview)} alt="Profile" />
+                                :
+                                <img src={authenticatedUser.image? `${process.env.REACT_APP_API}/images/users/${authenticatedUser.image}` : DefaultUserImage} alt="Profile" />
+
+                        }
                         <Styled.LabelImageInput htmlFor='image'>Mudar imagem</Styled.LabelImageInput>
                         <input onChange={(e)=>handleOnFileChange(e)} name='image' id='image' type="file" />
                     </div>

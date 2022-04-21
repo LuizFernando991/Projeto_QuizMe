@@ -122,23 +122,42 @@ export default class UserController {
 
     public static async updateUser (req : Request, res : Response ) : Promise<Response>{
         
+        const {name, email, password, confirmPassword} = req.body
+
+        if(password && password !== confirmPassword){
+            return res.status(422).json({ message : 'password must match with confirmPassword'})
+        }
+
+        if(!name){
+            return res.status(422).json({ message : 'name is required'})
+        }
+        if(!email){
+            return res.status(422).json({ message : 'email is required'})
+        }
+
         const userToken = getToken(req)
+
         if(!userToken){
             return res.status(401).json({ message : 'unauthorized'})
         }
-
-        const user = await getUserByToken(userToken, res)
+        const user = await getUserByToken(userToken, res, true)
         if(!user){
-            return res.status(404).json({ message : 'user not found'})
+            return res.status(422).json({ messagem : 'User not found'})
         }
+        const newPassword = password ? password : user.password
+        let image = ''
+        if(req.file){
+            image = req.file?.filename
+        }
+        const newUserData =  {
+            name : name,
+            email : email,
+            password : newPassword,
+            image : image
 
-        const dataUpdated = req.body
-        if(!dataUpdated){
-            return res.status(422).json({ message : 'data is required'})
         }
-        
         try{
-            const updatedUser = await User.findOneAndUpdate({_id : user._id}, dataUpdated).select('-password')
+            const updatedUser = await User.findOneAndUpdate({_id : user._id}, newUserData).select('-password')
             return res.status(200).json({user : updatedUser})
         }catch(err){
             return res.status(500).json({ message : 'internal error'})

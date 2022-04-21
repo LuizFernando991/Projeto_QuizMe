@@ -6,7 +6,7 @@ import path from 'path'
 const imageStorage = multer.diskStorage({
     
     destination : (req, file, cb)=>{
-        const folder = 'src/public/images'
+        const folder = 'src/public/images/users'
         cb(null, folder)
     },
     filename : (req, file, cb)=>{

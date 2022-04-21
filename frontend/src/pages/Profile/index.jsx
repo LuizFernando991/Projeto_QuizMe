@@ -44,7 +44,7 @@ export function Profile(){
     return(
         <Styled.ProfilePageContainer>
             <Styled.ProfileContainer>
-                <Styled.ImageContainer src={DefaultUserImage} alt={authenticatedUser.name || 'image'} />
+                <Styled.ImageContainer src={authenticatedUser.image ? `${process.env.REACT_APP_API}/images/users/${authenticatedUser.image}` : DefaultUserImage} alt={authenticatedUser.name || 'image'} />
                 <Styled.UserInformation>
                     <h3>{authenticatedUser.name?.trim()}</h3>
                     <p>{authenticatedUser.email?.trim()}</p>

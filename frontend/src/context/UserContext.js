@@ -20,7 +20,6 @@ export function UserContextProvider({children}){
     }, [localToken])
 
     useEffect(()=>{
-        console.log('chamou')
         if(token){
             api.get('/user', {
                 headers: {

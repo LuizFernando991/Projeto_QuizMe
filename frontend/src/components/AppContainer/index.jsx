@@ -18,7 +18,7 @@ export function AppContainer(){
                     <Styled.ImgContainer>
                         {
                             authenticatedUser.image ? 
-                                <img src={process.env.REACT_APP_API} alt={authenticatedUser.name} />
+                                <img src={`${process.env.REACT_APP_API}/images/users/${authenticatedUser.image}`} alt={authenticatedUser.name} />
                                 :
                                 <img src={DefaultUserImage} alt={authenticatedUser.name}/>
                         }       
